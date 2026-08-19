@@ -2,18 +2,19 @@ version: '3.8'
 
 services:
 
-  postgres:
-    image: postgres:16
-    container_name: paymind-postgres
+  mysql:
+    image: mysql:8.4
+    container_name: paymind-mysql
     restart: unless-stopped
     environment:
-      POSTGRES_USER: paymind
-      POSTGRES_PASSWORD: paymind123
-      POSTGRES_DB: paymind_db
+      MYSQL_ROOT_PASSWORD: paymind123
+      MYSQL_DATABASE: paymind_db
+      MYSQL_USER: paymind
+      MYSQL_PASSWORD: paymind123
     ports:
-      - "5432:5432"
+      - "3307:3306"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
 
   mongodb:
     image: mongo:7
@@ -59,5 +60,5 @@ services:
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
 
 volumes:
-  postgres_data:
+  mysql_data:
   mongo_data:
